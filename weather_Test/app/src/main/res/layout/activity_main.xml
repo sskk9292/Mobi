@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="실행"
+        android:onClick="onClickButton"/>
 
     <TextView
         android:id = "@+id/tv_WeatherInfo"
-        android:text="hello_world"
+        android:text="GPS와 인터넷을 켜고 실행버튼을 누르세요"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</ScrollView>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"/>
+
+
+</LinearLayout>

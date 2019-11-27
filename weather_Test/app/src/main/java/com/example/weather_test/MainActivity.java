@@ -2,23 +2,30 @@
 package com.example.weather_test;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
     public static final int THREAD_HANDLER_SUCCESS_INFO = 1;
     TextView tv_WeatherInfo;
 
     ForeCastManager mForeCast;
 
-    String lon = "128.3910799"; // 좌표 설정
-    String lat = "36.1444292";  // 좌표 설정
+    private LocationManager locationManager;
     MainActivity mThis;
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
@@ -28,16 +35,43 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Initialize();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                return;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                return;
+            }
+        }
     }
 
-    public void Initialize()
-    {
-        tv_WeatherInfo = (TextView)findViewById(R.id.tv_WeatherInfo);
-        mWeatherInfomation = new ArrayList<>();
-        mThis = this;
-        mForeCast = new ForeCastManager(lon,lat,mThis);
-        mForeCast.run();
+    public void Initialize() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(location != null) {
+            String lon = Double.toString(location.getLongitude());
+            String lat = Double.toString(location.getLatitude());
+            tv_WeatherInfo = (TextView) findViewById(R.id.tv_WeatherInfo);
+            mWeatherInfomation = new ArrayList<>();
+            mThis = this;
+            mForeCast = new ForeCastManager(lon, lat, mThis);
+            mForeCast.run();
+        }
     }
 
     public String PrintValue() {
@@ -107,4 +141,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
+    public void onClickButton(View view) {
+        Initialize();
+    }
 }
