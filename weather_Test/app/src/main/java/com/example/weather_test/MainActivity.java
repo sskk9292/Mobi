@@ -14,10 +14,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     public static final int THREAD_HANDLER_SUCCESS_INFO = 1;
@@ -30,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     ArrayList<ContentValues> mWeatherData;
     ArrayList<WeatherInfo> mWeatherInfomation;
 
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");
+    Date date = new Date();
+    int hour = Integer.parseInt(simpleDateFormat.format(date));
+
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public String PrintValue() {
         String mData = "";
         for (int i = 0; i < mWeatherInfomation.size(); i++) {
+            mWeatherInfomation.get(i).getWeather_Name();
             mData = mData
-                    + mWeatherInfomation.get(i).getWeather_Name() + "\r\n"
                     + mWeatherInfomation.get(i).getCloud_Name()
                     + " /구름양: " + mWeatherInfomation.get(i).getCloud_Amount() + "%" + "\r\n"
                     + mWeatherInfomation.get(i).getWind_Name()
@@ -87,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     + "/최고 기온: " + mWeatherInfomation.get(i).getTemp_Max() + "℃"
                     + " /최저 기온: " + mWeatherInfomation.get(i).getTemp_Min() + "℃" + "\r\n"
                     + "습도: " + mWeatherInfomation.get(i).getHumidity() + "%";
-
             mData = mData + "\r\n" + "----------------------------------------------" + "\r\n";
         }
         return mData;
@@ -141,6 +150,97 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         }
     };
+
+    public void WeatherIcon(String weather) {
+        int w = Integer.parseInt(weather);
+        image = (ImageView)findViewById(R.id.imageView);
+        if(w>=200 && w<= 232){
+            if(w >= 202 && w <= 212){
+                this.thunder();
+            } else{
+                this.thunder_rain();
+            }
+        } else if((w >= 300 && w <= 321) || (w >= 500 && w <= 531)){
+            if((w >= 300 && w <= 312) || (w >= 500 && w <= 501) || w == 520){
+                this.rain_weak();
+            } else{
+                this.rain_strong();
+            }
+        } else if(w >= 600 && w<= 622){
+            if(w == 602 || w >= 621){
+                this.snow_strong();
+            } else {
+                this.snow_weak();
+            }
+        } else if(w == 800){
+            this.sunny();
+        } else if(w >= 801 && w<= 803){
+            this.cloud();
+        } else if(w == 804){
+            this.cloud_strong();
+        } else if(w >= 951 && w<= 955){
+            this.wind_weak();
+        } else if((w >= 956 && w <= 962) || w == 771 || w == 781){
+            this.wind_strong();
+        } else if(w >= 701 && w <= 762){
+            mist();
+        }
+    }
+    public void sunny(){
+        if(hour<19 && hour>5){
+            image.setImageResource(R.drawable.sunny_day);
+        } else{
+            image.setImageResource(R.drawable.sunny_night);
+        }
+    }
+
+    public void cloud(){
+        if(hour<19 && hour>5){
+            image.setImageResource(R.drawable.cloud_day);
+        } else{
+            image.setImageResource(R.drawable.cloud_night);
+        }
+    }
+
+    public void cloud_strong(){
+        image.setImageResource(R.drawable.cloud_strong);
+    }
+
+    public void rain_strong(){
+        image.setImageResource(R.drawable.rain_strong);
+    }
+
+    public void rain_weak(){
+        image.setImageResource(R.drawable.rain_weak);
+    }
+
+    public void snow_strong(){
+        image.setImageResource(R.drawable.snow_strong);
+    }
+
+    public void snow_weak(){
+        image.setImageResource(R.drawable.snow_weak);
+    }
+
+    public void wind_strong(){
+        image.setImageResource(R.drawable.wind_strong);
+    }
+
+    public void wind_weak(){
+        image.setImageResource(R.drawable.wind_weak);
+    }
+
+    public void thunder(){
+        image.setImageResource(R.drawable.thunder);
+    }
+
+    public void thunder_rain(){
+        image.setImageResource(R.drawable.thunder_rain);
+    }
+
+    public void mist(){
+        image.setImageResource(R.drawable.mist);
+    }
 
     @Override
     public void onLocationChanged(Location location) {

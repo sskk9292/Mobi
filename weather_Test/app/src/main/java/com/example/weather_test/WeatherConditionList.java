@@ -201,7 +201,6 @@ public class WeatherConditionList {
         mListWindToHangeul.add(new WeatherCondition("960", "폭풍우"));
         mListWindToHangeul.add(new WeatherCondition("961", "폭풍"));
         mListWindToHangeul.add(new WeatherCondition("962", "허리케인"));
-
     }
         public class WeatherCondition {
             String id;

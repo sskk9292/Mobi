@@ -2,6 +2,7 @@ package com.example.weather_test;
 
 import android.content.ContentValues;
 import android.os.StrictMode;
+import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -10,6 +11,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ForeCastManager extends Thread{
@@ -17,6 +19,7 @@ public class ForeCastManager extends Thread{
 
     ArrayList<ContentValues> mWeatehr;
     MainActivity mContext;
+    String weather;
     public ArrayList<ContentValues> getmWeather()
     {
         return mWeatehr;
@@ -74,7 +77,8 @@ public class ForeCastManager extends Thread{
                             mContent.put("cloud_Amount", parser.getAttributeValue(null, "value"));
                             mContent.put("cloud_Name", parser.getAttributeValue(null, "name"));
                         } else if (checkStartTag == XmlPullParser.START_TAG  && parser.getName().equals("weather")) {
-                            mContent.put("weather_Sort", parser.getAttributeValue(null, "number"));
+                            weather = parser.getAttributeValue(null, "number");
+                            mContent.put("weather_Sort", weather);
                             mContent.put("weather_Name", parser.getAttributeValue(null, "value"));
                             mTotalValue.add(mContent);
                             break;
@@ -92,11 +96,9 @@ public class ForeCastManager extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        mContext.WeatherIcon(weather);
         return mTotalValue;
     }
-
-
 
     @Override
     public void run() {
