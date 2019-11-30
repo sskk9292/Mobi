@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <ImageView
@@ -24,11 +25,7 @@
         android:id = "@+id/tv_WeatherInfo"
         android:text="GPS와 인터넷을 켜고 실행버튼을 누르세요"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="#ffffffff"/>
 
 </LinearLayout>
