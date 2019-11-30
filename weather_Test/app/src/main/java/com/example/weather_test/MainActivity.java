@@ -155,91 +155,45 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         int w = Integer.parseInt(weather);
         image = (ImageView)findViewById(R.id.imageView);
         if(w>=200 && w<= 232){
-            if(w >= 202 && w <= 212){
-                this.thunder();
+            if(w >= 202 && w <= 212){//thunder
+                image.setImageResource(R.drawable.thunder);
+            } else{//thunder and rain
+                image.setImageResource(R.drawable.thunder_rain);
+            }
+        } else if((w >= 300 && w <= 321) || (w >= 500 && w <= 531)){//rain
+            if((w >= 300 && w <= 312) || (w >= 500 && w <= 501) || w == 520){//rain weak
+                image.setImageResource(R.drawable.rain_weak);
+            } else{//rain strong
+                image.setImageResource(R.drawable.rain_strong);
+            }
+        } else if(w >= 600 && w<= 622){//snow
+            if(w == 602 || w >= 621){//snow strong
+                image.setImageResource(R.drawable.snow_strong);
+            } else {//snow weak
+
+                image.setImageResource(R.drawable.snow_weak);
+            }
+        } else if(w == 800){//sunny
+            if(hour<19 && hour>5){
+                image.setImageResource(R.drawable.sunny_day);
             } else{
-                this.thunder_rain();
+                image.setImageResource(R.drawable.sunny_night);
             }
-        } else if((w >= 300 && w <= 321) || (w >= 500 && w <= 531)){
-            if((w >= 300 && w <= 312) || (w >= 500 && w <= 501) || w == 520){
-                this.rain_weak();
+        } else if(w >= 801 && w<= 803){//cloud
+            if(hour<19 && hour>5){
+                image.setImageResource(R.drawable.cloud_day);
             } else{
-                this.rain_strong();
+                image.setImageResource(R.drawable.cloud_night);
             }
-        } else if(w >= 600 && w<= 622){
-            if(w == 602 || w >= 621){
-                this.snow_strong();
-            } else {
-                this.snow_weak();
-            }
-        } else if(w == 800){
-            this.sunny();
-        } else if(w >= 801 && w<= 803){
-            this.cloud();
-        } else if(w == 804){
-            this.cloud_strong();
-        } else if(w >= 951 && w<= 955){
-            this.wind_weak();
-        } else if((w >= 956 && w <= 962) || w == 771 || w == 781){
-            this.wind_strong();
-        } else if(w >= 701 && w <= 762){
-            mist();
+        } else if(w == 804){//cloud strong
+            image.setImageResource(R.drawable.cloud_strong);
+        } else if(w >= 951 && w<= 955){//wind weak
+            image.setImageResource(R.drawable.wind_weak);
+        } else if((w >= 956 && w <= 962) || w == 771 || w == 781){//wind strong
+            image.setImageResource(R.drawable.wind_strong);
+        } else if(w >= 701 && w <= 762){//mist
+            image.setImageResource(R.drawable.mist);
         }
-    }
-    public void sunny(){
-        if(hour<19 && hour>5){
-            image.setImageResource(R.drawable.sunny_day);
-        } else{
-            image.setImageResource(R.drawable.sunny_night);
-        }
-    }
-
-    public void cloud(){
-        if(hour<19 && hour>5){
-            image.setImageResource(R.drawable.cloud_day);
-        } else{
-            image.setImageResource(R.drawable.cloud_night);
-        }
-    }
-
-    public void cloud_strong(){
-        image.setImageResource(R.drawable.cloud_strong);
-    }
-
-    public void rain_strong(){
-        image.setImageResource(R.drawable.rain_strong);
-    }
-
-    public void rain_weak(){
-        image.setImageResource(R.drawable.rain_weak);
-    }
-
-    public void snow_strong(){
-        image.setImageResource(R.drawable.snow_strong);
-    }
-
-    public void snow_weak(){
-        image.setImageResource(R.drawable.snow_weak);
-    }
-
-    public void wind_strong(){
-        image.setImageResource(R.drawable.wind_strong);
-    }
-
-    public void wind_weak(){
-        image.setImageResource(R.drawable.wind_weak);
-    }
-
-    public void thunder(){
-        image.setImageResource(R.drawable.thunder);
-    }
-
-    public void thunder_rain(){
-        image.setImageResource(R.drawable.thunder_rain);
-    }
-
-    public void mist(){
-        image.setImageResource(R.drawable.mist);
     }
 
     @Override
