@@ -28,6 +28,17 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/savebutton"
+        android:layout_width="63dp"
+        android:layout_height="37dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="1dp"
+        android:text="Save"
+        android:onClick="Click" />
+
+    <Button
         android:id="@+id/button1"
         android:layout_width="51dp"
         android:layout_height="wrap_content"
@@ -63,6 +74,19 @@
         android:layout_marginBottom="119dp"
         android:onClick="pauseMusic"
         android:background="@android:drawable/ic_media_pause" />
+
+    <EditText
+        android:id="@+id/edittext1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="37dp"
+        android:autofillHints=""
+        android:hint="Diary"
+        android:background="@android:color/white"
+        android:inputType="textMultiLine" tools:targetApi="o"/>
 
     <SeekBar
         android:layout_width="250dp"

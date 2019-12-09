@@ -1,13 +1,16 @@
 package com.example.photoviews;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -21,6 +24,12 @@ public class Main2Activity extends AppCompatActivity {
     private TextView textView;
     private MediaPlayer mediaPlayer = null;
     private SeekBar mSeekBar = null;
+    private EditText editText;
+    private Button SaveBtn;
+    private SharedPreferences sp ;
+    String[] m = {"","","","",""};
+    String num;
+    Intent intent;
 
     //----------weather------------
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH");
@@ -32,7 +41,6 @@ public class Main2Activity extends AppCompatActivity {
 public void showProgress(){
     if(mediaPlayer != null && mediaPlayer.isPlaying()){
         mSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-
     }
 }
     class ProgressThread extends Thread {
@@ -59,12 +67,11 @@ public void showProgress(){
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Intent intent = getIntent();
+        intent = getIntent();
         textView = (TextView)findViewById(R.id.textView);
         String weather = intent.getExtras().getString("weather");
         String data = intent.getExtras().getString("data");
@@ -75,7 +82,18 @@ public void showProgress(){
                 "Resolution: 6000*4000\n" +
                 "Camera model: Canon EOS 200D\n" +
                 "Aperture value: f/4\n"+"\n"+"\n"+"Diary: The camera lens that I bought for a long time finally arrived today, so I took the camera and came to the campus with a new lens. Many flowers on the campus were opened. So I took this picture with my camera. The photo is beautiful and my mood is very good.\n");
-        */initMusic();
+        */
+        initMusic();
+        editText = (EditText)findViewById(R.id.edittext1);
+        SaveBtn = (Button)findViewById(R.id.savebutton);
+        sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        num = intent.getExtras().getString("number");
+        String value = sp.getString("Value"+num, "");
+        editText.setText(value);
     }
     protected void onDestroy(){
         if(mediaPlayer != null){
@@ -93,7 +111,6 @@ public void showProgress(){
         ProgressThread thread = new ProgressThread();
         thread.setDaemon(true);
         thread.start();
-
     }
     public void startMusic(View view){
         Button button;
@@ -121,14 +138,17 @@ public void showProgress(){
     }
     public void pauseMusic(View view) {
         if (mediaPlayer.isPlaying()) {
-
             mediaPlayer.pause();
-
         } else {
             mediaPlayer.start();
             Button button = (Button) findViewById(R.id.button3);
-
         }
+    }
+
+    public void Click(View view) {
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("Value"+num,editText.getText().toString().trim());
+        edit.commit();
     }
 
     public void WeatherIcon(String weather) {

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int[] imgs = {R.drawable.img1, R.drawable.img2, R.drawable.img3, R.drawable.img4};//图片数据
-    int len    = 0;//数组第一个长度
+    int len = 0;//数组第一个长度
     private ImageView mImg;//图片切换器
     private Button button;
     // private ImageButton button1;
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<WeatherInfo> mWeatherInfomation;
     String weather = "";
     String data = "";
+    double[][] loc ={{0,0},{4,-12},
+            {13,-12},{5,-20},{0,11}};
     //------------weather------------
 
     @Override
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.setClass(com.example.photoviews.MainActivity.this,Main2Activity.class);
                 intent.putExtra("weather",weather);
                 intent.putExtra("data",data);
+                intent.putExtra("number",Integer.toString(len));
                 startActivity(intent);
             }
         });
@@ -119,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location != null) {
-            String lon = Double.toString(location.getLongitude());
-            String lat = Double.toString(location.getLatitude());
+            String lon = Double.toString(location.getLongitude()+loc[len][0]);
+            String lat = Double.toString(location.getLatitude()+loc[len][1]);
             //tv_WeatherInfo = (TextView) findViewById(R.id.textView);
             mWeatherInfomation = new ArrayList<>();
             mThis = this;
