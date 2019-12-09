@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main2Activity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="147dp"
+        android:text="@string/textview"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="63dp"
+        android:layout_height="37dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="339dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/save"
+        android:onClick="Click" />
+
+    <Button
+        android:id="@+id/getbutton"
+        android:layout_width="64dp"
+        android:layout_height="37dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="1dp"
+        android:text="@string/get"
+        android:onClick="Click"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="53dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="177dp"
+        android:layout_marginBottom="95dp"
+        android:background="@android:drawable/ic_media_pause"
+        android:onClick="pauseMusic" />
+
+    <EditText
+        android:id="@+id/edittext1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="37dp"
+        android:autofillHints=""
+        android:hint="@string/daily"
+        android:inputType="textMultiLine" tools:targetApi="o"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="51dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="257dp"
+        android:layout_marginBottom="98dp"
+        android:background="@android:drawable/ic_media_play"
+        android:onClick="startMusic" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="260dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="97dp"
+        android:background="@android:drawable/checkbox_off_background"
+        android:onClick="stopMusic" />
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="81dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="58dp"
+        android:onClick="pauseMusic" />
+
+</RelativeLayout>
