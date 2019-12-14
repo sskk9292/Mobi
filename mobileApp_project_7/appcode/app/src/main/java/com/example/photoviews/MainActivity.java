@@ -98,19 +98,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 len = imgs.length - 1;
             }
         }
+        mImg.setImageResource(imgs[len]);
         /**
          * 真正处理照片
          */
-        if (ID == R.id.top) {
-            mImg.setImageResource(imgs[len]);
-        } else {
-            mImg.setImageResource(imgs[len]);
-        }
     }
 
     public void Initialize() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -184,27 +181,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void Icon(String weather){
         this.weather = weather;
     }
-
-//    public Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch(msg.what){
-//                case THREAD_HANDLER_SUCCESS_INFO :
-//                    mForeCast.getmWeather();
-//                    mWeatherData = mForeCast.getmWeather();
-//                    if(mWeatherData.size() ==0)
-//                        //tv_WeatherInfo.setText("데이터가 없습니다");
-//
-//                    DataToInformation(); // 자료 클래스로 저장,
-//
-//                    DataChangedToHangeul();
-//                    data = PrintValue();
-//                    //tv_WeatherInfo.setText(data);
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    };
 }

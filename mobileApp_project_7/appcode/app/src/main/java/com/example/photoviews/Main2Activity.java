@@ -2,6 +2,7 @@ package com.example.photoviews;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -27,7 +29,6 @@ public class Main2Activity extends AppCompatActivity {
     private EditText editText;
     private Button SaveBtn;
     private SharedPreferences sp ;
-    String[] m = {"","","","",""};
     String num;
     Intent intent;
 
@@ -77,12 +78,7 @@ public void showProgress(){
         String data = intent.getExtras().getString("data");
         this.WeatherIcon(weather);
         textView.setText(data);
-        /*textView.setText("Date: 2019/5/17 16:12\n" +
-                "Address: Sangyeok 3(sam)-dong, Buk-gu, Daegu 35.890615, 128.612013\n" +
-                "Resolution: 6000*4000\n" +
-                "Camera model: Canon EOS 200D\n" +
-                "Aperture value: f/4\n"+"\n"+"\n"+"Diary: The camera lens that I bought for a long time finally arrived today, so I took the camera and came to the campus with a new lens. Many flowers on the campus were opened. So I took this picture with my camera. The photo is beautiful and my mood is very good.\n");
-        */
+
         initMusic();
         editText = (EditText)findViewById(R.id.edittext1);
         SaveBtn = (Button)findViewById(R.id.savebutton);
@@ -149,6 +145,21 @@ public void showProgress(){
         SharedPreferences.Editor edit = sp.edit();
         edit.putString("Value"+num,editText.getText().toString().trim());
         edit.commit();
+        showmsg();
+    }
+
+    private void showmsg(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("저장되었습니다!");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     public void WeatherIcon(String weather) {
